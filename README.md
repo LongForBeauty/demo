@@ -29,7 +29,7 @@ Therefore, the knowledge has been kept for the user.
 In another interface, users can see their saved information through a mindmap separated by root tags, which they can edit as well. 
 
 ### Author: Zilong Wang
-- **Contact:**1007273820@qq.com
+- **Contact:** 1007273820@qq.com
 - **LinkedIn:** http://bit.ly/2vIsjbK
 - **Personal website:** wzl90.com
 

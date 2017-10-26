@@ -129,7 +129,8 @@
 		</div>
 
 		<script>
- 			var text = document.getElementsByTagName('p');
+ 			var rootElement = document.documentElement;
+			var firstTier = rootElement.childNodes;
  			var popup = document.getElementById('myPopup');
  			var hint = document.getElementById('popupHint');
  			var tags = document.getElementById('tags');
@@ -140,13 +141,13 @@
  			var popup_height = 150;	//height of the popup window 
  			var i;
 
-  			for (i = 0; i < text.length; i++) {
-  				text[i].addEventListener('mouseup', function () {
+  			for (i = 0; i < firstTier.length; i++) {
+  				firstTier[i].addEventListener('mouseup', function () {
   					var range = window.getSelection().getRangeAt(0);
  			 		var span = document.createElement('span');
  			 		//Display the selected text in a pop up window
-  					tags.innerHTML = window.getSelection().toString();
-  					hint.innerHTML = "点击并保存到所属类别";
+  					tags.innerHTML= window.getSelection().toString();
+  					hint.textContent = "点击并保存到所属类别";
   					//Highlight the selected text
   					span.style.backgroundColor = 'black';
   					span.style.color = 'white'

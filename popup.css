@@ -1,0 +1,21 @@
+.myPopup {
+	position: absolute; 
+	background-color: #CCCCCC; 
+	box-shadow: 5px 5px 3px #888888; 
+	z-index: 10;
+	color:#000000;
+}
+
+.popupHint {
+	position: relative; 
+	top: 0px; 
+	left: 10px; 
+	font-weight: 800; 
+	letter-spacing: 1.5px
+}
+
+.tags {
+	position: relative; 
+	left: 10px; 
+	font-weight: 700;
+}

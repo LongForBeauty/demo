@@ -1,5 +1,5 @@
 
- 			var text = document.getElementsByTagName('p');
+ 			var text = document.documentElement;
  			var popup = document.getElementById('myPopup');
  			var hint = document.getElementById('popupHint');
  			var tags = document.getElementById('tags');
@@ -12,8 +12,9 @@
 
   			for (i = 0; i < text.length; i++) {
   				text[i].addEventListener('mouseup', function () {
-  					var range = window.getSelection().getRangeAt(0);
+  				var range = window.getSelection().getRangeAt(0);
  			 		var span = document.createElement('span');
+          alert("Hello, it is working");
  			 		//Display the selected text in a pop up window
   					tags.innerHTML = window.getSelection().toString();
   					hint.innerHTML = "点击并保存到所属类别";

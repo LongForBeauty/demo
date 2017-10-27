@@ -1,6 +1,19 @@
 {
-	
+	"manifest_version": 2,
+	"name": "chrome extension: save into a mindmap"	,
+	"version": "0.1",
 
+	"content_scripts": [
+		{
+			"matches": [
+				"<all_urls>"
+			],
 
-	
+			"js": ["popup.js"]
+		}
+	],
+
+	"page_action": {
+		"default_popup": "popup.html"
+	}
 }

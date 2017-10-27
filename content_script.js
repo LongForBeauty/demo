@@ -17,6 +17,7 @@ popup.style.zIndex = "99";
 //Create HTML element for the header of the popup box
 var hint = document.createElement('h3');
 hint.style.position = "relative";
+hint.style.top = "5px";
 hint.style.left = "10px";
 hint.style.fontWeight = "800";
 hint.style.letterSpacing = "1.5px";

@@ -2,18 +2,18 @@
 var rootElement = document.documentElement;
 var firstTier = rootElement.childNodes;
 
+var popup_width = window.innerWidth * 0.3;	//width of the popup window
+var popup_height = window.innerHeight * 0.25;	//height of the popup window 
+var popup_y_offset = -1.2 * popup_height;  //positive number means moving downwards.
+var popup_x_offset = -0.3 * popup_width;  //positive number means moving towards right.
 
-var popup_y_offset = -155;	//positive number means moving downwards.
-var popup_x_offset = -50;	//positive number means moving towards right.
-var popup_width = 500;	//width of the popup window
-var popup_height = 150;	//height of the popup window 
-var i;
 
 //Create HTML element for the popup box
 var popup = document.createElement('div');
 popup.style.position = "absolute";
 popup.style.backgroundColor = "#CCCCCC";
 popup.style.boxShadow = "5px 5px 3px #888888";
+popup.style.zIndex = "99";
 //Create HTML element for the header of the popup box
 var hint = document.createElement('h3');
 hint.style.position = "relative";
@@ -30,7 +30,7 @@ document.body.appendChild(popup);
 popup.appendChild(hint);
 popup.appendChild(tags);
 
-	for (i = 0; i < firstTier.length; i++) {
+	for (var i = 0; i < firstTier.length; i++) {
 		firstTier[i].addEventListener('mouseup', function () {
 		  var range = window.getSelection().getRangeAt(0);
 	 		var span = document.createElement('span');
@@ -43,11 +43,15 @@ popup.appendChild(tags);
 
     	span.appendChild(range.extractContents());
     	range.insertNode(span);  
+      //Get (left and top) co-ordinates of the selected text
+      var rect = span.getBoundingClientRect(),
+      scrollLeft = window.scrollX || document.documentElement.scrollLeft;
+      scrollTop = window.scrollY || document.documentElement.scrollTop;
     	//Put pop-up window up of the selected text
     	popup.style.width = popup_width + "px";
     	popup.style.height = popup_height + "px";
-    	popup.style.left = span.offsetLeft + popup_x_offset + "px" ;
-    	popup.style.top = span.offsetTop + popup_y_offset +  "px" ;
+    	popup.style.left = rect.left + scrollLeft + popup_x_offset + "px" ;
+    	popup.style.top = rect.top + scrollTop + popup_y_offset +  "px" ;
 	    
 	    });
 	} 

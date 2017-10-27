@@ -9,11 +9,9 @@
 				"<all_urls>"
 			],
 
-			"js": ["popup.js"]
-		}
-	],
+			"js": ["content_script.js"]
 
-	"page_action": {
-		"default_popup": "popup.html"
-	}
+		}
+	]
+
 }

@@ -33,27 +33,32 @@ popup.appendChild(tags);
 
 	for (var i = 0; i < firstTier.length; i++) {
 		firstTier[i].addEventListener('mouseup', function () {
-		  var range = window.getSelection().getRangeAt(0);
-	 		var span = document.createElement('span');
-	 		//Display the selected text in a pop up window
-			tags.innerHTML = window.getSelection().toString();
-			hint.innerHTML = "点击并保存到所属类别";
-			//Highlight the selected text
-			span.style.backgroundColor = 'black';
-			span.style.color = 'white'
+			if(window.getSelection().toString().trim() !== ""){
+			    var range = window.getSelection().getRangeAt(0);
+		 		var span = document.createElement('span');
+		 		//Display the selected text in a pop up window
+				tags.innerHTML = window.getSelection().toString().trim();
+				hint.innerHTML = "点击并保存到所属类别";
+				//Highlight the selected text
+				span.style.backgroundColor = 'black';
+				span.style.color = 'white'
 
-    	span.appendChild(range.extractContents());
-    	range.insertNode(span);  
-      //Get (left and top) co-ordinates of the selected text
-      var rect = span.getBoundingClientRect(),
-      scrollLeft = window.scrollX || document.documentElement.scrollLeft;
-      scrollTop = window.scrollY || document.documentElement.scrollTop;
-    	//Put pop-up window up of the selected text
-    	popup.style.width = popup_width + "px";
-    	popup.style.height = popup_height + "px";
-    	popup.style.left = rect.left + scrollLeft + popup_x_offset + "px" ;
-    	popup.style.top = rect.top + scrollTop + popup_y_offset +  "px" ;
-	    
+	    		span.appendChild(range.extractContents());
+	    		range.insertNode(span);  
+	      		//Get (left and top) co-ordinates of the selected text
+	      		var rect = span.getBoundingClientRect(),
+	      		scrollLeft = window.scrollX || document.documentElement.scrollLeft;
+	      		scrollTop = window.scrollY || document.documentElement.scrollTop;
+	    		//Put pop-up window up of the selected text
+	    		popup.style.width = popup_width + "px";
+	    		popup.style.height = popup_height + "px";
+	    		popup.style.left = rect.left + scrollLeft + popup_x_offset + "px" ;
+	    		popup.style.top = rect.top + scrollTop + popup_y_offset +  "px" ;
+	    		popup.style.display = "initial";
+	    	}
+	    	else {
+	    		popup.style.display = "none";
+	    	}
 	    });
 	} 
 

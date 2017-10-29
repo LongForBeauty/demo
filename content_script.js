@@ -6,7 +6,7 @@ popup.style.lineHeight = '2';
 popup.style.backgroundColor = "#CCCCCC";
 popup.style.borderBottomLeftRadius = '12px';
 popup.style.boxShadow = "5px 5px 3px #888888";
-popup.style.zIndex = "99";
+popup.style.zIndex = "999";
 //Create HTML element for the header of the popup box
 var hint = document.createElement('h3');
 hint.style.position = "relative";
@@ -35,17 +35,15 @@ var firstTier = rootElement.childNodes;
 var popup_width = window.innerWidth * 0.3;	//width of the popup window
 var popup_height = window.innerHeight * 0.25;	//height of the popup window 
 var popup_y_offset = -1.2 * popup_height;  //positive number means moving downwards.
-var popup_x_offset = -0.3 * popup_width;  //positive number means moving towards right.
+var popup_x_offset = 0  * popup_width;  //positive number means moving towards right.
 
 	for (var i = 0; i < firstTier.length; i++) {
 		firstTier[i].addEventListener('mouseup', function () {
 			var sel = window.getSelection().toString().trim();
-			if(sel !== ""){
+
+			if(sel !== "") {
 			    var range = window.getSelection().getRangeAt(0);
 		 		var span = document.createElement('span');
-
-		 		//alert("Start container:" + range.startContainer+"  "+"End container:" + range.endContainer);
-		 		//alert("Start:"+range.startOffset+"   "+"end:"+range.endOffset);
 		 		//Display the selected text in a pop up window
 				tags.innerHTML = sel;
 				hint.innerHTML = "点击并保存到所属类别";
@@ -54,20 +52,34 @@ var popup_x_offset = -0.3 * popup_width;  //positive number means moving towards
 				span.style.color = 'black';
 				span.style.fontWeight = '800';
 
-	    		//span.appendChild(range.extractContents());
-	    		//range.insertNode(span); 
 	    		range.surroundContents(span);
-	    		//alert("Start container:" + range.startContainer+"  "+"End container:" + range.endContainer);
-	    		//alert("Start:"+range.startOffset+"   "+"end:"+range.endOffset);
 	      		//Get (left and top) co-ordinates of the selected text
 	      		var rect = span.getBoundingClientRect(),
 	      		scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
-	      		scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+	      		scrollTop = window.pageYOffset || document.documentElement.scrollTop,
+	      		popupLeft = rect.left + scrollLeft + popup_x_offset,
+	      		popupTop = rect.top + scrollTop + popup_y_offset;
 	    		//Put pop-up window up of the selected text
 	    		popup.style.width = popup_width + "px";
 	    		popup.style.height = popup_height + "px";
-	    		popup.style.left = rect.left + scrollLeft + popup_x_offset + "px" ;
-	    		popup.style.top = rect.top + scrollTop + popup_y_offset +  "px" ;
+	    		//If popup window does not across the viewport's right edge
+	    		if ((rect.left + popup_width) <= window.innerWidth) {
+	    			popup.style.left = popupLeft + "px" ;
+	    		}
+	    		else {
+	    			popupLeft = window.innerwidth - popup_width;
+	    			popup.style.left = popupleft + "px";
+	    		}
+	    		//If popup window does not across the viewport's top edge	    		
+	    		if ((rect.top - popup_height) >= 0) {
+	    			popup.style.top = popupTop +  "px" ;
+	    		}
+	    		else {
+	    			popupTop = rect.top + scrollTop + (0.2 * popup_height);
+	    			popup.style.top = popupTop + 'px';
+
+	    		}
+	    		
 	    		popup.style.display = "initial";
 	    	}
 	    	else {

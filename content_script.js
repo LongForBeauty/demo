@@ -1,7 +1,11 @@
 //Create HTML element for the popup box
 var popup = document.createElement('div');
 popup.style.position = "absolute";
-popup.style.padding = '5px 10px';
+popup.style.paddingTop = '5px';
+popup.style.paddingBottom = '5px';
+popup.style.paddingLeft = '10px';
+popup.style.paddingRight = '10px';
+
 popup.style.lineHeight = '2';
 popup.style.backgroundColor = "#CCCCCC";
 popup.style.borderBottomLeftRadius = '12px';
@@ -10,18 +14,28 @@ popup.style.zIndex = "999";
 //Create HTML element for the header of the popup box
 var hint = document.createElement('h3');
 hint.style.position = "relative";
-hint.style.top = "5px";
-hint.style.bottom = "2px";
-hint.style.marginBottom = '0px';	
-hint.style.left = "10px";
+hint.style.marginTop = "5px";
+hint.style.marginBottom = '5px';
+hint.style.marginLeft = "0px";
+hint.style.marginRight = "0px";
+hint.style.paddingTop = "0px";
+hint.style.paddingBottom = "0px";
+
 hint.style.fontWeight = "800";
 hint.style.letterSpacing = "1.5px";
 hint.style.fontSize = '18px';
 //Create HTML element for the tags inside the popup box
 var tags = document.createElement('p');
 tags.style.position = "relative";
-tags.style.top = '5px';
-tags.style.left = "10px";
+tags.style.marginTop = '5px';
+tags.style.marginBottom = '5px';
+tags.style.marginLeft = "0px";
+tags.style.marginRight = '0px';
+tags.style.paddingTop = '0px';
+tags.style.paddingBottom = '0px';
+tags.style.paddingLeft= '0px';
+tags.style.paddingRight= '0px';
+
 tags.style.fontWeight = "700";
 tags.style.fontSize = '15px';
 

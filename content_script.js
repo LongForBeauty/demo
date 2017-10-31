@@ -1,3 +1,6 @@
+/*********************************************************************
+/*HTML and CSS part 
+/*********************************************************************/
 //Create HTML element for the popup box
 var popup = document.createElement('div');
 popup.style.position = "absolute";
@@ -25,7 +28,7 @@ hint.style.fontWeight = "800";
 hint.style.letterSpacing = "1.5px";
 hint.style.fontSize = '18px';
 //Create HTML element for the tags inside the popup box
-var tags = document.createElement('p');
+var tags = document.createElement('div');
 tags.style.position = "relative";
 tags.style.marginTop = '5px';
 tags.style.marginBottom = '5px';
@@ -39,6 +42,12 @@ tags.style.paddingRight= '0px';
 tags.style.fontWeight = "700";
 tags.style.fontSize = '15px';
 
+//Create HTML element for a save button
+
+
+/*********************************************************************
+/*JavaScript part 
+/*********************************************************************/
 document.body.appendChild(popup);
 popup.appendChild(hint);
 popup.appendChild(tags);
@@ -46,27 +55,45 @@ popup.appendChild(tags);
 var rootElement = document.documentElement;
 var firstTier = rootElement.childNodes;
 
-var popup_width = window.innerWidth * 0.3;	//width of the popup window
-var popup_height = window.innerHeight * 0.25;	//height of the popup window 
-var popup_y_offset = -1.2 * popup_height;  //positive number means moving downwards.
-var popup_x_offset = 0  * popup_width;  //positive number means moving towards right.
-
-	for (var i = 0; i < firstTier.length; i++) {
-		firstTier[i].addEventListener('mouseup', function () {
+//Event handler for 'user selection' on the webpage
+document.addEventListener('keydown', (event) => {
+	if (event.altKey) {
+		for (var i = 0; i < firstTier.length; i++) {
+			firstTier[i].addEventListener('mouseup', function () {
 			var sel = window.getSelection().toString().trim();
-
+			tags.innerHTML = null;
 			if(sel !== "") {
 			    var range = window.getSelection().getRangeAt(0);
 		 		var span = document.createElement('span');
 		 		//Display the selected text in a pop up window
-				tags.innerHTML = sel;
+		 		sel = sel.toUpperCase();
+				var clickTag = sel.split(" ", 10);
 				hint.innerHTML = "点击并保存到所属类别";
+				//Make tags as buttons
+				for (var i = 0; i < clickTag.length; i++) {
+					var tagElement = document.createElement('button');
+					tagElement.innerHTML = clickTag[i];
+
+					/*********************************************************************
+					/*CSS part 
+					/*********************************************************************/
+					tagElement.style.border = "2px ridge grey";
+					tagElement.style.marginRight = '2px';
+
+					tags.appendChild(tagElement);
+				}
+
 				//Highlight the selected text
 				span.style.backgroundColor = 'pink';
 				span.style.color = 'black';
 				span.style.fontWeight = '800';
 
 	    		range.surroundContents(span);
+	    		//Set up popup box's properties: width, height and offsets.
+	    		var popup_width = window.innerWidth * 0.3;	//width of the popup window
+				var popup_height = window.innerHeight * 0.25;	//height of the popup window 
+				var popup_y_offset = -1.2 * popup_height;  //positive number means moving downwards.
+				var popup_x_offset = 0  * popup_width;  //positive number means moving towards right.
 	      		//Get (left and top) co-ordinates of the selected text
 	      		var rect = span.getBoundingClientRect(),
 	      		scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
@@ -81,8 +108,8 @@ var popup_x_offset = 0  * popup_width;  //positive number means moving towards r
 	    			popup.style.left = popupLeft + "px" ;
 	    		}
 	    		else {
-	    			popupLeft = window.innerwidth - popup_width;
-	    			popup.style.left = popupleft + "px";
+	    			popupLeft = window.innerWidth - popup_width + scrollLeft;
+	    			popup.style.left = popupLeft + "px";
 	    		}
 	    		//If popup window does not across the viewport's top edge	    		
 	    		if ((rect.top - popup_height) >= 0) {
@@ -93,12 +120,18 @@ var popup_x_offset = 0  * popup_width;  //positive number means moving towards r
 	    			popup.style.top = popupTop + 'px';
 
 	    		}
-	    		
 	    		popup.style.display = "initial";
 	    	}
 	    	else {
 	    		popup.style.display = "none";
 	    	}
-	    });
-	} 
+	    	});
+
+		} 
+	}
+});
+
+
+
+
 

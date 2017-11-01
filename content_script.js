@@ -55,10 +55,12 @@ popup.appendChild(tags);
 var rootElement = document.documentElement;
 var firstTier = rootElement.childNodes;
 
-//Event handler for 'user selection' on the webpage
+//Event handler for user pressing the keyboard
 document.addEventListener('keydown', (event) => {
+	//when the 'alt' key is pressed
 	if (event.altKey) {
 		for (var i = 0; i < firstTier.length; i++) {
+			//Event handler for 'user selection' on the webpage
 			firstTier[i].addEventListener('mouseup', function () {
 			var sel = window.getSelection().toString().trim();
 			tags.innerHTML = null;
@@ -70,19 +72,15 @@ document.addEventListener('keydown', (event) => {
 				var clickTag = sel.split(" ", 10);
 				hint.innerHTML = "点击并保存到所属类别";
 				//Make tags as buttons
+				createBtnNodes(tags, clickTag.length);
 				for (var i = 0; i < clickTag.length; i++) {
-					var tagElement = document.createElement('button');
-					tagElement.innerHTML = clickTag[i];
-
+					tags.childNodes[i].innerHTML = clickTag[i];
 					/*********************************************************************
 					/*CSS part 
 					/*********************************************************************/
-					tagElement.style.border = "2px ridge grey";
-					tagElement.style.marginRight = '2px';
-
-					tags.appendChild(tagElement);
+					tags.childNodes[i].style.border = "2px ridge grey";
+					tags.childNodes[i].style.marginRight = '2px';
 				}
-
 				//Highlight the selected text
 				span.style.backgroundColor = 'pink';
 				span.style.color = 'black';
@@ -120,6 +118,14 @@ document.addEventListener('keydown', (event) => {
 	    			popup.style.top = popupTop + 'px';
 
 	    		}
+	    		
+	    		//When user clicks on the 'tag', the background color of the tag changes
+	    		for (var j = 0; j <= tags.childNodes.length; j++) {
+		    		tags.childNodes[j].addEventListener('mousedown', function(e){
+		    			alert('yes');
+		    			e.target.style.backgroundColor = 'orange';
+		    		});	    			
+	    		}
 	    		popup.style.display = "initial";
 	    	}
 	    	else {
@@ -130,6 +136,15 @@ document.addEventListener('keydown', (event) => {
 		} 
 	}
 });
+
+
+function createBtnNodes(obj, length) {
+	for (var j = 0; j <= length; j++) {
+		var newDiv = document.createElement('button');
+		obj.appendChild(newDiv);
+	}
+}
+
 
 
 

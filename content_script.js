@@ -1,5 +1,5 @@
 /*********************************************************************
-/*HTML and CSS part 
+/*HTML and CSS part
 /*********************************************************************/
 //Create HTML element for the popup box
 var popup = document.createElement('div');
@@ -8,12 +8,14 @@ popup.style.paddingTop = '5px';
 popup.style.paddingBottom = '5px';
 popup.style.paddingLeft = '10px';
 popup.style.paddingRight = '10px';
-
+popup.style.border = "Thick solid #B22222";
 popup.style.lineHeight = '2';
-popup.style.backgroundColor = "#CCCCCC";
-popup.style.borderBottomLeftRadius = '12px';
-popup.style.boxShadow = "5px 5px 3px #888888";
+popup.style.backgroundColor = "#ffffff";
+popup.style.opacity='1';
+popup.style.borderBottomLeftRadius = '20px';
+popup.style.boxShadow = "10px 10px 5px #888888";
 popup.style.zIndex = "999";
+
 //Create HTML element for the header of the popup box
 var hint = document.createElement('h3');
 hint.style.position = "relative";
@@ -29,6 +31,7 @@ hint.style.letterSpacing = "1.5px";
 hint.style.fontSize = '18px';
 //Create HTML element for the tags inside the popup box
 var tags = document.createElement('div');
+
 tags.style.position = "relative";
 tags.style.marginTop = '5px';
 tags.style.marginBottom = '5px';
@@ -43,14 +46,24 @@ tags.style.fontWeight = "700";
 tags.style.fontSize = '15px';
 
 //Create HTML element for a save button
-
+/*var arrow = document.createElement('div');
+arrow.style.position = "relative";
+arrow.style.background="#282727";
+arrow.style.width='70px';
+arrow.style.height='16px';
+arrow.style.overflow='hidden';
+arrow.style.left='50%';
+arrow.style.marginLeft='-35px';
+arrow.style.bottom='-16px';
 
 /*********************************************************************
-/*JavaScript part 
+/*JavaScript part
 /*********************************************************************/
 document.body.appendChild(popup);
 popup.appendChild(hint);
 popup.appendChild(tags);
+/*popup.appendChild(arrow);*/
+
 
 var rootElement = document.documentElement;
 var firstTier = rootElement.childNodes;
@@ -76,20 +89,22 @@ document.addEventListener('keydown', (event) => {
 				for (var i = 0; i < clickTag.length; i++) {
 					tags.childNodes[i].innerHTML = clickTag[i];
 					/*********************************************************************
-					/*CSS part 
+					/*CSS part
 					/*********************************************************************/
-					tags.childNodes[i].style.border = "2px ridge grey";
+					tags.childNodes[i].style.backgroundColor = "#FFFFFF";
+					tags.childNodes[i].style.border = "1px ridge #B22222";
 					tags.childNodes[i].style.marginRight = '2px';
 				}
 				//Highlight the selected text
-				span.style.backgroundColor = 'pink';
+				span.style.border="1px ridge #B22222"
+				span.style.backgroundColor = '#';
 				span.style.color = 'black';
 				span.style.fontWeight = '800';
 
 	    		range.surroundContents(span);
 	    		//Set up popup box's properties: width, height and offsets.
 	    		var popup_width = window.innerWidth * 0.3;	//width of the popup window
-				var popup_height = window.innerHeight * 0.25;	//height of the popup window 
+				var popup_height = window.innerHeight * 0.25;	//height of the popup window
 				var popup_y_offset = -1.2 * popup_height;  //positive number means moving downwards.
 				var popup_x_offset = 0  * popup_width;  //positive number means moving towards right.
 	      		//Get (left and top) co-ordinates of the selected text
@@ -109,7 +124,7 @@ document.addEventListener('keydown', (event) => {
 	    			popupLeft = window.innerWidth - popup_width + scrollLeft;
 	    			popup.style.left = popupLeft + "px";
 	    		}
-	    		//If popup window does not across the viewport's top edge	    		
+	    		//If popup window does not across the viewport's top edge
 	    		if ((rect.top - popup_height) >= 0) {
 	    			popup.style.top = popupTop +  "px" ;
 	    		}
@@ -118,13 +133,14 @@ document.addEventListener('keydown', (event) => {
 	    			popup.style.top = popupTop + 'px';
 
 	    		}
-	    		
+
 	    		//When user clicks on the 'tag', the background color of the tag changes
 	    		for (var j = 0; j <= tags.childNodes.length; j++) {
 		    		tags.childNodes[j].addEventListener('mousedown', function(e){
 		    			alert('yes');
-		    			e.target.style.backgroundColor = 'orange';
-		    		});	    			
+		    			e.target.style.backgroundColor = '#B22222';
+							e.target.style.color = '#FFFFFF';
+		    		});
 	    		}
 	    		popup.style.display = "initial";
 	    	}
@@ -133,7 +149,7 @@ document.addEventListener('keydown', (event) => {
 	    	}
 	    	});
 
-		} 
+		}
 	}
 });
 
@@ -144,9 +160,3 @@ function createBtnNodes(obj, length) {
 		obj.appendChild(newDiv);
 	}
 }
-
-
-
-
-
-

@@ -3,7 +3,14 @@
 	background-color: #CCCCCC;
 	box-shadow: 5px 5px 3px #888888;
 	z-index: 10;
-	color:#0000;
+	color:#000000;
+}
+#myArrow {
+	width:0;
+	height:0;
+	border-top: 140px solid #fcf921;
+	border-left: 70px solid transparent;
+	border-right: 70px solid transparent;
 }
 
 #popupHint {

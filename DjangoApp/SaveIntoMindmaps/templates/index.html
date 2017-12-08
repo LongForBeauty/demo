@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+
+{% block body_block %}
+
+<div class="jumbotron">
+  <h1>Save what you want into a mindmap</h1>
+  <h2>Input the text to be saved, your comment, and the topic</h2>
+  
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ user_form.as_p }}
+    {{ profile_form.as_p }}
+    <input type="submit" value="Register">
+  </form>
+
+</div>
+
+{% endblock %}

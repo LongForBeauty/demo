@@ -15,10 +15,10 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from user_authentication import views
+from mindmap import views
 
 urlpatterns = [
-    url(r'^$', views.index, name='index'),
+    url(r'^$', views.SaveEntry, name='SaveEntry'),
     url(r'^admin/', admin.site.urls),
     url(r'^user/', include('user_authentication.urls')),
     url(r'^mindmap/', include('mindmap.urls')),

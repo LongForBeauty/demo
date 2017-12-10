@@ -17,4 +17,4 @@ class UserSelectionComment(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.user_comment
+        return u"User: %s SavedText: %s" % (self.user, self.text_content)

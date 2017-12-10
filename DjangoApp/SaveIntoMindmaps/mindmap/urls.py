@@ -5,5 +5,5 @@ from . import views
 app_name = 'mindmap'
 
 urlpatterns = [
-
+    url(r'^result/', views.mindmap, name='mindmap')
 ]

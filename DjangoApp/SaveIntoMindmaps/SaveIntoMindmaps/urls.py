@@ -19,7 +19,7 @@ from mindmap import views
 
 urlpatterns = [
     url(r'^$', views.SaveEntry, name='SaveEntry'),
-    url(r'^admin/', admin.site.urls),
+    url(r'^admin/', admin.site.urls, name='admin'),
     url(r'^user/', include('user_authentication.urls')),
     url(r'^mindmap/', include('mindmap.urls')),
 ]

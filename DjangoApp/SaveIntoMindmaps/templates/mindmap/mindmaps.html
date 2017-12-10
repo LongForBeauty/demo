@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+
+{% block body_block %}
+  <div class="container">
+    <h2> We keep all valued information for you!</h2>
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thread>
+          <tr>
+            <th>Valued information</th>
+            <th>Your comment</th>
+            <th>Topic</th>
+          </tr>
+        </thread>
+        <tbody>
+          {% for item in entries %}
+          <tr>
+            <th>{{ item.text_content }}<th>
+            <th>{{ item.user_comment }}<th>
+            <th>{{ item.parent_node }}</th>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+
+{% endblock %}

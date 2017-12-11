@@ -3,7 +3,7 @@
 {% block body_block %}
 
 <div class="jumbotron">
-  <h1>Please login</h1>
+  <h2>Please login</h2>
   <form action="{% url 'user_authentication:user_login' %}" method='post'>
     {% csrf_token %}
     <label for="username">Username:</label>

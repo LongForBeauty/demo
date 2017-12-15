@@ -122,7 +122,6 @@ document.addEventListener('keydown', (event) => {
 	    		//When user clicks on the 'tag', the background color of the tag changes
 	    		for (var j = 0; j <= tags.childNodes.length; j++) {
 		    		tags.childNodes[j].addEventListener('mousedown', function(e){
-		    			alert('yes');
 		    			e.target.style.backgroundColor = 'orange';
 		    		});	    			
 	    		}
@@ -139,7 +138,7 @@ document.addEventListener('keydown', (event) => {
 
 
 function createBtnNodes(obj, length) {
-	for (var j = 0; j <= length; j++) {
+	for (var j = 0; j < length; j++) {
 		var newDiv = document.createElement('button');
 		obj.appendChild(newDiv);
 	}

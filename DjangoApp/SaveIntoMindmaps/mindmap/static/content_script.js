@@ -27,6 +27,19 @@ hint.style.paddingBottom = "0px";
 hint.style.fontWeight = "800";
 hint.style.letterSpacing = "1.5px";
 hint.style.fontSize = '18px';
+//Create HTML element - form Input for the user-input of the popup box
+var comment_form = document.createElement('FORM');
+/*comment.enctype = "text/plain";
+comment.method = "post";
+var comment_hint = document.createTextNode('Your comment:');
+comment_form.appendChild(comment_hint);
+var comment_input = document.createElement('input');
+comment_input.type = 'text';
+comment_input.name = 'comment';
+var comment_submit = document.createElement('input');
+comment_input.type = 'submit';
+comment_input.value = 'Submit';
+comment_form.appendChild(comment_submit);*/
 //Create HTML element for the tags inside the popup box
 var tags = document.createElement('div');
 tags.style.position = "relative";
@@ -50,6 +63,7 @@ tags.style.fontSize = '15px';
 /*********************************************************************/
 document.body.appendChild(popup);
 popup.appendChild(hint);
+popup.appendChild(comment_form);
 popup.appendChild(tags);
 
 var rootElement = document.documentElement;
@@ -63,6 +77,43 @@ document.addEventListener('keydown', (event) => {
 			//Event handler for 'user selection' on the webpage
 			firstTier[i].addEventListener('mouseup', function () {
 			var sel = window.getSelection().toString().trim();
+			var post_selection = {"text_content":sel};
+
+			//Send user's selection - sel to the backend
+			//**********************************************************************
+			//CSRFToken set-up for 'POST' requests
+			//***********************************************************************
+			//获取cookie代码
+			function getCookie(name) {
+		        var cookieValue = null;
+		        if (document.cookie && document.cookie != '') {
+		            var cookies = document.cookie.split(';');
+		            for (var i = 0; i < cookies.length; i++) {
+		                var cookie = jQuery.trim(cookies[i]);
+		                // Does this cookie string begin with the name we want?
+		                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+		                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+		                    break;
+		                }
+		            }
+		        }
+		        return cookieValue;
+		    }
+
+
+		    $.ajaxSetup({
+		      beforeSend: function(xhr, settings){
+
+		          xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));              //request头需要添加csrftoken,告诉服务器，我是个好yin哪，我是正常访问者
+		      }
+		    });
+
+		  	$.post("mindmap/SaveUserSelection/", {'text_content':sel,
+		                                        "user_comment":sel,
+		                                        "parent_node":sel},
+		                                         function(){
+		  });
+			//**********************************************************************
 			tags.innerHTML = null;
 			if(sel !== "") {
 			    var range = window.getSelection().getRangeAt(0);

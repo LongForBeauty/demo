@@ -61,9 +61,12 @@ document.addEventListener('keydown', (event) => {
 	if (event.altKey) {
 		for (var i = 0; i < firstTier.length; i++) {
 			//Event handler for 'user selection' on the webpage
-			firstTier[i].addEventListener('mouseup', function () {
+			firstTier[i].addEventListener('mouseup', function (e) {
 			var sel = window.getSelection().toString().trim();
+			var target = e.target;
 			tags.innerHTML = null;
+
+		  	//**********************************************************************
 			if(sel !== "") {
 			    var range = window.getSelection().getRangeAt(0);
 		 		var span = document.createElement('span');
@@ -127,7 +130,8 @@ document.addEventListener('keydown', (event) => {
 	    		}*/
 	    		popup.style.display = "initial";
 	    	}
-	    	else {
+			//Only if the user clicks on none-popup DOM element, popup disppeared.
+	    	else if (!popup.contains(target))  {
 	    		popup.style.display = "none";
 	    	}
 	    	});

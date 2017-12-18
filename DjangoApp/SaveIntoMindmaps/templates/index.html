@@ -9,14 +9,14 @@
       <h2>Successfully saved!</h2>
       <a href="{% url 'SaveEntry' %}" class="btn btn-primary btn-md" role="button">Input again!</a>
     {% else %}
-      <h2>You select valued information, we save into mindmaps</h1>
+      <h2>You select valued information, we save into mindmaps</h2>
       <h4>Input the text content, your comment, and the topic below. And we will the do the rest for you!</h2>
       <br>
       <form method="post" enctype="multipart/form-data">
           {% csrf_token %}
           {{ user_selection.as_p }}
           {{ user_comment.as_p }}
-          <input type="submit" class="btn btn-primary btn-md" value="Save">
+          <input type="submit" class="btn btn-dark btn-lg" value="Save">
       </form>
     {% endif %}
   </div>
@@ -62,7 +62,5 @@ I hope this overview helps!</p>
 {% endblock %}
 
 {% block script_block %}
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript" src="{% static 'content_script.js'%}"></script>
-
 {% endblock %}

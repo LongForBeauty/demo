@@ -4,8 +4,10 @@ from mindmap.models import UserSelectionComment
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect, HttpResponse
+from django.views.decorators.csrf import ensure_csrf_cookie 
 
 # Create your views here.
+@ensure_csrf_cookie
 def SaveUserSelection(request):
     if not request.user.is_authenticated():
         return HttpResponseRedirect("/user/user_login/")
@@ -18,7 +20,7 @@ def SaveUserSelection(request):
         user_selection_form = UserSelectionForm(data=request.POST)
         user_comment_form = UserSelectionCommentForm(data=request.POST)
 
-        if user_selection_form.is_valid():
+        if user_selection_form.is_valid() and user_comment_form.is_valid():
             user_selection = user_selection_form.save()
             user_selection.save()
 
@@ -38,6 +40,7 @@ def SaveUserSelection(request):
 
     return HttpResponse("Saved successfully!")
 
+@ensure_csrf_cookie
 def SaveEntry(request):
     if not request.user.is_authenticated():
         return HttpResponseRedirect("/user/user_login/")

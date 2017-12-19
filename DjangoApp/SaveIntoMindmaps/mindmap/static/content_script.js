@@ -79,163 +79,172 @@ popup.appendChild(comment_input);
 popup.appendChild(topic_hint);
 popup.appendChild(tags);
 popup.appendChild(submit_btn);
-var popup_elements = [popup, hint, comment_hint, comment_input,
-	topic_hint, tags, submit_btn];
+popup.style.display = "none";
 
-	var rootElement = document.documentElement;
-	var firstTier = rootElement.childNodes;
+var rootElement = document.documentElement;
+var firstTier = rootElement.childNodes;
 
+var user_selection, user_comment, topic;
 
-	var user_selection, user_comment, topic;
+//Event handler for user pressing the keyboard
+document.addEventListener('keydown', (event) => {
+	//when the 'alt' key is pressed
+	if (event.altKey) {
+		for (var i = 0; i < firstTier.length; i++) {
+			//Event handler for 'user selection' on the webpage
+			firstTier[i].addEventListener('mouseup', function (e) {
+				//Elements in the popup window is set to be not selectable!
+				if (!popup.contains(e.target)) {
+					var sel = window.getSelection().toString().trim();
+					user_selection = sel;
+					//**********************************************************************
+					tags.innerHTML = null;
+					if(sel !== "") {
+						var range = window.getSelection().getRangeAt(0);
+						var span = document.createElement('span');
+						//Display the selected text in a pop up window
+						sel = sel.toUpperCase();
+						var clickTag = sel.split(" ", 8);
+						//hint.innerHTML = "点击并保存到所属类别";
+						//Make tags as buttons
+						createBtnNodes(tags, clickTag.length);
 
+						//Add event listerner to each tag
+						for (var i = 0; i < clickTag.length; i++) {
+							tags.childNodes[i].innerHTML = clickTag[i];
+							/*********************************************************************
+							/*CSS part
+							/*********************************************************************/
+							tags.childNodes[i].style.border = "2px ridge grey";
+							tags.childNodes[i].style.marginRight = '2px';
+						}
+						//Highlight the selected text
+						span.style.backgroundColor = 'pink';
+						span.style.color = 'black';
+						span.style.fontWeight = '800';
 
-
-	//Event handler for user pressing the keyboard
-	document.addEventListener('keydown', (event) => {
-		//when the 'alt' key is pressed
-		if (event.altKey) {
-			for (var i = 0; i < firstTier.length; i++) {
-				//Event handler for 'user selection' on the webpage
-				firstTier[i].addEventListener('mouseup', function (e) {
-					//Elements in the popup window is set to be not selectable!
-					if (!popup_elements.includes(e.target)) {
-						var sel = window.getSelection().toString().trim();
-						user_selection = sel;
-
-						var target = e.target;
-						//**********************************************************************
-						tags.innerHTML = null;
-						if(sel !== "") {
-							var range = window.getSelection().getRangeAt(0);
-							var span = document.createElement('span');
-							//Display the selected text in a pop up window
-							sel = sel.toUpperCase();
-							var clickTag = sel.split(" ", 8);
-							//hint.innerHTML = "点击并保存到所属类别";
-							//Make tags as buttons
-							createBtnNodes(tags, clickTag.length);
-
-							//Add event listerner to each tag
-							for (var i = 0; i < clickTag.length; i++) {
-								tags.childNodes[i].innerHTML = clickTag[i];
-								/*********************************************************************
-								/*CSS part
-								/*********************************************************************/
-								tags.childNodes[i].style.border = "2px ridge grey";
-								tags.childNodes[i].style.marginRight = '2px';
-							}
-							//Highlight the selected text
-							span.style.backgroundColor = 'pink';
-							span.style.color = 'black';
-							span.style.fontWeight = '800';
-
-							range.surroundContents(span);
-							//Set up popup box's properties: width, height and offsets.
-							var popup_width = window.innerWidth * 0.3;	//width of the popup window
-							var popup_height = window.innerHeight * 0.25;	//height of the popup window
-							var popup_y_offset = -1.2 * popup_height;  //positive number means moving downwards.
-							var popup_x_offset = 0  * popup_width;  //positive number means moving towards right.
-							//Get (left and top) co-ordinates of the selected text
-							var rect = span.getBoundingClientRect(),
-							scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
-							scrollTop = window.pageYOffset || document.documentElement.scrollTop,
-							popupLeft = rect.left + scrollLeft + popup_x_offset,
-							popupTop = rect.top + scrollTop + popup_y_offset;
-							//Put pop-up window up of the selected text
-							popup.style.width = popup_width + "px";
-							popup.style.height = popup_height + "px";
-							//If popup window does not across the viewport's right edge
-							if ((rect.left + popup_width) <= window.innerWidth) {
-								popup.style.left = popupLeft + "px" ;
-							}
-							else {
-								popupLeft = window.innerWidth - popup_width + scrollLeft;
-								popup.style.left = popupLeft + "px";
-							}
-							//If popup window does not across the viewport's top edge
-							if ((rect.top - popup_height) >= 0) {
-								popup.style.top = popupTop +  "px" ;
-							}
-							else {
-								popupTop = rect.top + scrollTop + (0.2 * popup_height);
-								popup.style.top = popupTop + 'px';
-
-							}
-
-							//Event handler for user selecting the topics
-							for (var j = 0; j <= tags.childNodes.length; j++) {
-								tags.childNodes[j].addEventListener('mousedown', function(e){
-									e.target.style.backgroundColor = '#B22222';
-									e.target.style.color = '#FFFFFF';
-									topic = e.target.innerHTML;
-								});
-							}
-
-
-							popup.style.display = "initial";
+						range.surroundContents(span);
+						//Set up popup box's properties: width, height and offsets.
+						var popup_width = window.innerWidth * 0.3;	//width of the popup window
+						var popup_height = window.innerHeight * 0.25;	//height of the popup window
+						var popup_y_offset = -1.2 * popup_height;  //positive number means moving downwards.
+						var popup_x_offset = 0  * popup_width;  //positive number means moving towards right.
+						//Get (left and top) co-ordinates of the selected text
+						var rect = span.getBoundingClientRect(),
+						scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
+						scrollTop = window.pageYOffset || document.documentElement.scrollTop,
+						popupLeft = rect.left + scrollLeft + popup_x_offset,
+						popupTop = rect.top + scrollTop + popup_y_offset;
+						//Put pop-up window up of the selected text
+						popup.style.width = popup_width + "px";
+						popup.style.height = popup_height + "px";
+						//If popup window does not across the viewport's right edge
+						if ((rect.left + popup_width) <= window.innerWidth) {
+							popup.style.left = popupLeft + "px" ;
+						}
+						else {
+							popupLeft = window.innerWidth - popup_width + scrollLeft;
+							popup.style.left = popupLeft + "px";
+						}
+						//If popup window does not across the viewport's top edge
+						if ((rect.top - popup_height) >= 0) {
+							popup.style.top = popupTop +  "px" ;
+						}
+						else {
+							popupTop = rect.top + scrollTop + (0.2 * popup_height);
+							popup.style.top = popupTop + 'px';
 
 						}
-						//Only if the user clicks on none-popup DOM element, popup disppeared.
-						else if (!popup.includes(target)) {
-							popup.style.display = "none" ;
+
+						popup.style.display = "initial";
+
+						//Event handler for user selecting the topics
+						for (var j = 0; j <= tags.childNodes.length; j++) {
+							tags.childNodes[j].addEventListener('mousedown', function(e){
+								e.target.style.backgroundColor = '#B22222';
+								e.target.style.color = '#FFFFFF';
+								topic = e.target.innerHTML;
+							});
 						}
 					}
-				});
-			};
+					//Only if the user clicks on none-popup DOM element, popup disppeared.
+					else {
+						popup.style.display = "none" ;
+					}
+				}
+			});
 		};
-	});
+	};
+});
 
-	//Event handler for user typing in the comment
-	comment_input.addEventListener('input', function(){
-		user_comment = comment_input.value;
-	});
+//Event handler for user typing in the comment
+comment_input.addEventListener('input', function(){
+	user_comment = comment_input.value;
+});
 
-
-
-
-	//Send user's selection, comments, topic to the backend
-	$(submit_btn).click(function(){
-		alert('Selection: '+user_selection+' Comment: '+user_comment+' Topic: '+topic);
-		$.ajaxSetup({
-			beforeSend: function(xhr, settings){
-				//request头需要添加csrftoken,告诉服务器，我是个好yin哪，我是正常访问者
+//Send user's selection, comments, topic to the backend
+$(submit_btn).click(function(){
+	$.ajaxSetup({
+		beforeSend: function(xhr, settings) {
+			if (!csrfSafeMethod(settings.type) && sameOrigin(settings.url)) {
+				// Send the token to same-origin, relative URLs only.
+				// Send the token only if the method warrants CSRF protection
+				// Using the CSRFToken value acquired earlier
 				xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
 			}
-		});
-
-		$.post("mindmap/SaveUserSelection/", {'text_content':user_selection,
-		"user_comment":user_comment,
-		"parent_node":topic},
-		function(){
-		});
+		}
 	});
+	$.post("mindmap/SaveUserSelection/", {'text_content':user_selection,
+	"user_comment":user_comment,
+	"parent_node":topic},
+	function(){
+		popup.style.display = "none" ;
+	});
+});
+//**********************************************************************
+//functions
+//**********************************************************************
+//CSRFToken set-up for 'POST' requests
+function csrfSafeMethod(method) {
+	// these HTTP methods do not require CSRF protection
+	return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
 
-	//**********************************************************************
-	//functions
-	//**********************************************************************
+function sameOrigin(url) {
+	// test that a given url is a same-origin URL
+	// url could be relative or scheme relative or absolute
+	var host = document.location.host; // host + port
+	var protocol = document.location.protocol;
+	var sr_origin = '//' + host;
+	var origin = protocol + sr_origin;
+	// Allow absolute or scheme relative URLs to same origin
+	return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+	(url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+	// or any other URL that isn't scheme relative or absolute i.e relative.
+	!(/^(\/\/|http:|https:).*/.test(url));
+}
 
-	//CSRFToken set-up for 'POST' requests
-	//获取cookie代码
-	function getCookie(name) {
-		var cookieValue = null;
-		if (document.cookie && document.cookie != '') {
-			var cookies = document.cookie.split(';');
-			for (var i = 0; i < cookies.length; i++) {
-				var cookie = jQuery.trim(cookies[i]);
-				// Does this cookie string begin with the name we want?
-				if (cookie.substring(0, name.length + 1) == (name + '=')) {
-					cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-					break;
-				}
+//Get csrftoken that is stored in cookie
+function getCookie(name) {
+	var cookieValue = null;
+	if (document.cookie && document.cookie != '') {
+		var cookies = document.cookie.split(';');
+		for (var i = 0; i < cookies.length; i++) {
+			var cookie = jQuery.trim(cookies[i]);
+			// Does this cookie string begin with the name we want?
+			if (cookie.substring(0, name.length + 1) == (name + '=')) {
+				cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+				break;
 			}
 		}
-		return cookieValue;
 	}
+	return cookieValue;
+}
 
-	function createBtnNodes(obj, length) {
-		for (var j = 0; j < length; j++) {
-			var newDiv = document.createElement('button');
-			newDiv.className = 'btn btn-light';
-			obj.appendChild(newDiv);
-		}
+function createBtnNodes(obj, length) {
+	for (var j = 0; j < length; j++) {
+		var newDiv = document.createElement('button');
+		newDiv.className = 'btn btn-light';
+		obj.appendChild(newDiv);
 	}
+}

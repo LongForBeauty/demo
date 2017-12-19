@@ -2,29 +2,30 @@
 {% extends 'base.html' %}
 
 {% block body_block %}
-  <div class="container">
-    <h2> We keep all valued information for you!</h2>
-    <div class="table-responsive">
-      <table class="table table-hover">
-        <thread style="display=table-header-group">
-          <tr>
-            <th>Valued information</th>
-            <th>Your comment</th>
-            <th>Topic</th>
-          </tr>
-        </thread>
-        <tbody>
-          {% for item in entries %}
-          <tr>
-            <th>{{ item.text_content }}<th>
-            <th>{{ item.user_comment }}<th>
-            <th>{{ item.parent_node }}</th>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
-  </div>
+<div class="jumbotron">
+  <h2> We keep all valued information for you!</h2>
+</div>
+<div class="container">
+  <table class="table table-responsive table-hover table-striped">
+    <thead>
+      <tr class="bg-warning">
+        <th>Valued information</th>
+        <th>Your comment</th>
+        <th>Topic</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in entries %}
+      <tr>
+        <td>{{ item.text_content }}</td>
+        <td>{{ item.user_comment }}</td>
+        <td>{{ item.parent_node }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+</div>
 
 
 

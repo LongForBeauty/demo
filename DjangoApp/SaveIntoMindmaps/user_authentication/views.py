@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import  csrf_exempt
 
 # Create your views here.
 def index(request):
@@ -59,7 +60,7 @@ def register(request):
                     'profile_form': profile_form,
                     'registered':registered}
                     )
-
+@csrf_exempt
 def user_login(request):
 
     if request.method == "POST":

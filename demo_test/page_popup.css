@@ -1,0 +1,111 @@
+#popup_container {
+	position:absolute;
+	padding-top:.3em;
+	padding-bottom:.3em;
+	padding-left :0.625em;
+	padding-right : 0.625em;
+
+	line-height : 1;
+	background-color : #336699;
+	border-bottom-left-radius : .75em;
+	box-shadow : .625em .625em .625em #888888;
+	z-index : 999;
+}
+
+#popup_header {
+	position : relative;
+	margin-top : 0.3125em;
+	margin-bottom : .3125em;
+	margin-left: 0px;
+	margin-right : 0px;
+	padding-top : 0px;
+	padding-bottom : 0px;
+	font-weight : 800;
+	letter-spacing : 1.5px;
+	font-size : 1.125em;
+}
+
+#hint {
+	position : relative;
+	font-weight : 800;
+	color : #ecf2f9;
+	font-size: 1em;
+	padding: 0.375em 0.75em ;
+	margin:0 0;
+}
+
+#user_comment {
+	display:block;
+    width:100%;
+    padding:.375rem .75rem;
+    font-size:1rem;
+    line-height:1.5;
+    color:#495057;
+    background-color:#fff;
+    background-image:none;
+    background-clip:padding-box;
+    border:1px solid #ced4da;
+    border-radius:.25rem;
+    transition:border-color ease-in-out .15s,box-shadow ease-in-out .15s
+}
+
+#user_comment:focus{
+    color:#495057;
+    background-color:#fff;
+    border-color:#80bdff;
+    outline:0;
+    box-shadow:0 0 0 .2rem rgba(0,123,255,.25)
+}
+
+.myBtn{
+    display:inline-block;
+    font-weight:400;
+    text-align:center;
+    white-space:nowrap;
+    vertical-align:middle;
+    user-select:none;
+    border:1px solid transparent;
+    padding:.375rem .75rem;
+    font-size:1rem;
+    line-height:1.5;
+    border-radius:.25rem;
+    transition:background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out
+}
+
+.myBtn:focus,.myBtn:hover{
+    text-decoration:none
+}
+.myBtn.focus,.myBtn:focus{
+    outline:0;
+    box-shadow:0 0 0 .2rem rgba(0,123,255,.25)
+}
+
+.myBtn-dark{
+    color:#fff;
+    background-color:#343a40;
+    border-color:#343a40
+}
+.myBtn-dark:hover{
+    color:#fff;
+    background-color:#23272b;
+    border-color:#1d2124
+}
+.myBtn-dark.focus,.myBtn-dark:focus{
+    box-shadow:0 0 0 .2rem rgba(52,58,64,.5)
+}
+
+.myBtn-light{
+    color:#111;
+    background-color:#f8f9fa;
+    border-color:#f8f9fa
+}
+.myBtn-light:hover{
+    color:#111;
+    background-color:#e2e6ea;
+    border-color:#dae0e5
+}
+.myBtn-light.focus,.myBtn-light:focus{
+    box-shadow:0 0 0 .2rem rgba(248,249,250,.5)
+}
+
+

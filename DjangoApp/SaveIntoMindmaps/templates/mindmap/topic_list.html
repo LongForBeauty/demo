@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+
+{% block body_block %}
+<div class="jumbotron">
+  <h2> We group your valued information based on your interested topics</h2>
+</div>
+
+<div class="container-fluid">
+  {% for item in topic %}
+  <a class="btn" href="{% url 'mindmap:Mindmap' %}">{{ item }}</a>
+  <br>
+  {% endfor %}
+</div>
+
+{% endblock %}
+
+{% block script_block %}
+  <script>
+    var topicNode = document.getElementsByClassName('btn');
+    for (var i=0; i <= topicNode.length; i++ ) {
+      topicNode[i].addEventListener('click', function(e){
+        var xhr = new XMLHttpRequest();
+        var FD  = new FormData();
+
+        FD.append(topic, e.target.innerHTML);
+        xhr.open('GET', '/mindmap/mindmap/', true);
+        xhr.send(FD);
+      });
+    }
+  </script>
+{% endblock %}

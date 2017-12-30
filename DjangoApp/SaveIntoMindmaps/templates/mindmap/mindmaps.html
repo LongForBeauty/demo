@@ -11,15 +11,13 @@
       <tr class="bg-warning">
         <th>Valued information</th>
         <th>Your comment</th>
-        <th>Topic</th>
       </tr>
     </thead>
     <tbody>
-      {% for item in entries %}
+      {% for item in selections %}
       <tr>
-        <td>{{ item.text_content }}</td>
+        <td>{{ item.selection }}</td>
         <td>{{ item.user_comment }}</td>
-        <td>{{ item.parent_node }}</td>
       </tr>
       {% endfor %}
     </tbody>

@@ -15,7 +15,7 @@
       <form method="post" enctype="multipart/form-data">
           {% csrf_token %}
           {{ user_selection.as_p }}
-          {{ user_comment.as_p }}
+          {{ user_comments.as_p }}
           <input type="submit" class="btn btn-dark btn-lg" value="Save">
       </form>
     {% endif %}

@@ -27,7 +27,7 @@ SECRET_KEY = '@cq5(kdm15bz2v@f8b+3^aei5i#=wqx+7qv+%2&8t-i0@a5hl*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [libligh.pythonanywhere.com,]
 
 
 # Application definition

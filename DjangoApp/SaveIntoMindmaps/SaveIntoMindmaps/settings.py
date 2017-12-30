@@ -27,31 +27,41 @@ SECRET_KEY = '@cq5(kdm15bz2v@f8b+3^aei5i#=wqx+7qv+%2&8t-i0@a5hl*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [libligh.pythonanywhere.com,]
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'user_authentication',
+    'mindmap',
+    'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'mindmap',
-    'user_authentication',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CORS_ORIGIN_ALLOW_ALL = True
+from corsheaders.defaults import default_methods
+from corsheaders.defaults import default_headers
+
+CSRF_TRUSTED_ORIGINS = (
+    '.qq.com'
+)
 
 ROOT_URLCONF = 'SaveIntoMindmaps.urls'
 
@@ -128,10 +138,15 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
-
-STATIC_URL = '/static/'
-STATCFILES_DIRS = [STATIC_DIR,]
-
+STATIC_ROOT = STATIC_DIR  #The 'primary' absolute path to the directory of static files
+STATIC_URL = '/static/' #URL to use referring to static files located in STATIC_ROOT
+STATCFILES_DIRS = [STATIC_DIR,
+                    "A:/Libligh/Chrome Extension/demo/DjangoApp/SaveIntoMindmaps/mindmap/static/css",
+                    ] #Additional paths/folders for static files.
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+]
 #MEDIA_DIR
 MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'

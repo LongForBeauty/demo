@@ -1,19 +1,66 @@
 <!DOCTYPE html>
 {% extends 'base.html' %}
-
+{% load static %}
 {% block body_block %}
 
 <div class="jumbotron">
-  <h1>Save what you want into a mindmap</h1>
-  <h2>Input the text to be saved, your comment, and the topic</h2>
-
-  <form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ user_selection.as_p }}
-    {{ user_comment.as_p }}
-    <input type="submit" value="save">
-  </form>
-
+  <div class="container">
+    {% if saved %}
+      <h2>Successfully saved!</h2>
+      <a href="{% url 'SaveEntry' %}" class="btn btn-primary btn-md" role="button">Input again!</a>
+    {% else %}
+      <h2>You select valued information, we save into mindmaps</h2>
+      <h4>Input the text content, your comment, and the topic below. And we will the do the rest for you!</h2>
+      <br>
+      <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          {{ user_selection.as_p }}
+          {{ user_comments.as_p }}
+          <input type="submit" class="btn btn-dark btn-lg" value="Save">
+      </form>
+    {% endif %}
+  </div>
 </div>
 
+<div class="main">
+  <div class="container">
+    <p>Some of the other answers have discussed specific technologies, I'll try to add a more general overview.
+
+The front end of a web page, as you mentioned, is the element structure (HTML), styling (CSS) and dynamic behavior (JS) of the page, processed and displayed by the browser.
+
+In the "old days" of the internet, most web pages were simply html/css documents sitting on servers. Someone would enter a URL into their browser, a request was sent across the internet for the resource located at that URL, and the web server (probably Apache) would receive the request, and then send the page file back across the internet to the user's browser, which would render the page.
+
+With the growth of the web dynamic content quickly became necessary. For example, a news website with stories that constantly change or something with user generated content - to update the HTML by hand every time would be pretty unwieldy.
+
+So technologies like PHP began to be used on the server side. Typically, the web server would have access to a database containing all the relevant information for a site: content (text), users, profiles, etc., and HTML/CSS templates for the main pages of the site.
+
+The way this works is that a request would come in, the database would be queried to retrieve the information needed to serve that request (the user profile information, content, etc.) and then the server would dynamically insert that content as indicated in the template. The result would be an HTML/CSS document just like any other, composed "on the spot" based on the request.
+
+This enabled greater complexity in web sites and reuse of all the elements of web pages that don't change (such as headers, background, etc.), updating only the dynamic parts as needed.
+
+All this can be done today in Python (or other languages) more elegantly than in PHP, with the help of one of Python's excellent web frameworks, such as Flask, Django or Pyramid. I personally recommend Flask as an ideal choice to start with.
+
+Flask itself primarily consists of a "Web Server Gateway Interface" (WSGI) utility (translation: request handling) called Werkzeug and a templating tool called Jinja. They are both very easy to use.
+
+Flask makes it easy to write templates that can render HTML documents dynamically, based on the data you provide them, and also map URLS to Python functions that will:
+- use Python code to process requests
+- prepare the data you want to pass to a chosen template
+- render and return styled HTML documents based on templates
+
+Recently the use of front end frameworks is also very popular - this entails taking the elements I just described (request handling and HTML rendering) and handling them on the client side instead of on the server, saving the round trip to the server for most actions. Using this architecture for a whole site is referred to as a "single page application", since the page only loads from the server one time (when the browser downloads the Javascript code that does everything else). After the initial download, the only communication with the server is via API calls to retrieve raw data, or save things to the DB, which is lighter on the server compared to sending back complete pages every time, and enables better performance on the client side.
+
+One can easily combine these approaches by using HTML templates to render the pages on the server, but with some dynamic page elements managed by javascript on the client side.
+
+In any case, the paradigm is the same - using code to create HTML/CSS dynamically, and managing that process and surrounding concerns (such as authentication, access control, etc.) as conveniently as possible.
+
+So as far as connecting the two, it's either a matter of creating the HTML documents on the server and then sending them to the client, or enabling access to raw data from the client (via API calls from javascript code) and rendering on the client side.
+
+I hope this overview helps!</p>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block script_block %}
+  <script type="text/javascript" src="{% static 'content_script.js'%}"></script>
 {% endblock %}

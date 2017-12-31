@@ -165,7 +165,14 @@ document.onreadystatechange = function () {
 									tags.childNodes[j].addEventListener('mousedown', function(e){
 										e.target.style.backgroundColor = '#B22222';
 										e.target.style.color = '#FFFFFF';
-										topic = e.target.innerHTML;
+										if (e.target.type == 'text') {
+											e.target.addEventListener('input', function(){
+												topic = e.target.value;
+											})
+										}
+										else {
+											topic = e.target.innerHTML;
+										}
 									});
 								}
 							}
@@ -198,7 +205,7 @@ document.onreadystatechange = function () {
 			});
 			$.post("mindmap/SaveUserSelection/", {'text_content':user_selection,
 			"user_comment":user_comment,
-			"parent_node":topic},
+			"topic":topic},
 			function(){
 				popup.style.display = "none" ;
 			});

@@ -2,10 +2,15 @@
 {% extends 'base.html' %}
 
 {% block body_block %}
-<div class="jumbotron">
-  <h2> We keep all valued information for you!</h2>
+<div class="jumbotron" id="jumbotron">
+  {% if selected %}
+    <h2> Topic: {{ topic }}</h2>
+  {% else %}
+    <h2> Select a topic and we will display the rest.</h2>
+  {% endif %}
 </div>
-<div class="container">
+<div class="container" id="mindmap">
+  {% if selected %}
   <table class="table table-responsive table-hover table-striped">
     <thead>
       <tr class="bg-warning">
@@ -22,9 +27,31 @@
       {% endfor %}
     </tbody>
   </table>
-
+  {% else %}
+  <div class="container-fluid">
+    <form method="get" enctype="multipart/form-data">
+      {% for item in topic %}
+        <input type="radio" name="topic" value="{{item}}">{{item}}<br>
+      {% endfor %}
+      <input type="submit" class="btn" value="submit">
+    </form>
+  </div>
+  {% endif %}
 </div>
-
-
-
 {% endblock %}
+
+<!--{% block script_block %}
+ <script>
+  var topicNode = document.getElementsByClassName('btn');
+    for (var i=0; i <= topicNode.length; i++ ) {
+      topicNode[i].addEventListener('click', function(e){
+        $.get('{% url 'mindmap:Mindmap' %}', {topic:e.target.innerHTML}, function(){
+          $('#jumbotron').replaceWith("mindmaps.html #jumbotron");
+          $('#mindmap').replaceWith("mindmaps.html #mindmap");
+        }).fail(function() {
+            alert( "error" );
+          });
+      });
+    }
+  </script>
+{% endblock %}-->

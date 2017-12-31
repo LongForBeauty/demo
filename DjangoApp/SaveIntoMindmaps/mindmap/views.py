@@ -65,6 +65,8 @@ def SaveEntry(request):
             user_comment.selection = user_selection
             user_comment.user = user
             user_comment.save()
+
+            saved = True
         else:
             print(selection_form.errors, user_comment_form.errors)
         #Empty the form after saving the content into the databaes
@@ -84,29 +86,27 @@ def Mindmap(request):
 
     #Retrieve the current logged-in 'user' object
     user_id = request.session['_auth_user_id']
-    request_topic = request.GET.get('topic')
-    print(request.GET)
 
-    selection_entries = SelectionUsersComments.objects.all().filter(
-                        user_id=user_id
-                        )
-    print(selection_entries)
-    return render(request, 'mindmap/mindmaps.html', {'selections':selection_entries,
-                                                     })
+    #Assume at the start, there is no selection
+    selected = False
 
-def ListTopic(request):
-    if not request.user.is_authenticated():
-        return HttpResponseRedirect("http://127.0.0.1:8000/user/user_login/")
-
-    #Retrieve the current logged-in 'user' object
-    user_id = request.session['_auth_user_id']
-    user = get_object_or_404(User, pk=user_id)
-
-    topics = SelectionUsersComments.objects.all().filter(
-                                                  user_id=user_id
-                                                  ).values_list(
-                                                  'topic', flat=True
-                                                  ).distinct(
-                                                  )
-
-    return render(request, 'mindmap/topic_list.html', {'topic':topics})
+    if request.GET.get('topic') != None:
+       request_topic = request.GET.get('topic')
+       selection_entries = SelectionUsersComments.objects.all().filter(
+                           user_id=user_id
+                           ).filter(
+                           topic = request_topic
+                           )
+       selected = True
+       return render(request, 'mindmap/mindmaps.html', {'topic':request_topic,
+                                                    'selected':selected,
+                                                    'selections':selection_entries})
+    else:
+        topics = SelectionUsersComments.objects.all().filter(
+                                                      user_id=user_id
+                                                      ).values_list(
+                                                      'topic', flat=True
+                                                      ).distinct(
+                                                      )
+        return render(request, 'mindmap/mindmaps.html', {'topic':topics,
+                                                     'selected':selected})

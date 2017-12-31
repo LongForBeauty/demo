@@ -27,7 +27,7 @@ SECRET_KEY = '@cq5(kdm15bz2v@f8b+3^aei5i#=wqx+7qv+%2&8t-i0@a5hl*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [libligh.pythonanywhere.com,]
+ALLOWED_HOSTS = ['libligh.pythonanywhere.com', '127.0.0.1',]
 
 
 # Application definition
@@ -35,7 +35,6 @@ ALLOWED_HOSTS = [libligh.pythonanywhere.com,]
 INSTALLED_APPS = [
     'user_authentication',
     'mindmap',
-    'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -47,7 +46,6 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -55,13 +53,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ORIGIN_ALLOW_ALL = True
-from corsheaders.defaults import default_methods
-from corsheaders.defaults import default_headers
-
-CSRF_TRUSTED_ORIGINS = (
-    '.qq.com'
-)
 
 ROOT_URLCONF = 'SaveIntoMindmaps.urls'
 
